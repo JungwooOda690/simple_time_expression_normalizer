@@ -58,3 +58,10 @@ who may have a different notion of “today” (timezone, business day, etc.).
 The `now` argument is any callable returning a timezone-naive `datetime`.  It
 defaults to `datetime.now`.  Supplying a fixed clock is the supported way to
 make results deterministic in tests.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
